@@ -17,6 +17,11 @@ const Authors = (props) => {
     updateAuthor({ variables: { name,born:Number(born) } })
   }
 
+  const selectedChange = event => {
+    console.log('selectedchange',event.target.value)
+    setName(event.target.value)
+  }
+
   if (!props.show) {
     return null
   }
@@ -51,7 +56,9 @@ const Authors = (props) => {
       </table>
       <form onSubmit={updateClick}>
         <h3>Set birthyear</h3>
-        <div>name <input value={name} onChange={({target}) => setName(target.value)}  /></div>
+        <select value={name} onChange={selectedChange}>
+          {authors.map((author) => <option value={author.name} key={author.id}>{author.name}</option>)}
+        </select>
         <div>born <input value={born} onChange={({target}) => setBorn(target.value)} /></div>
         <button type='submit'>update author</button>
       </form>
