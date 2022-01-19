@@ -3,14 +3,17 @@ import React, {  useState } from 'react'
 import { useQuery,useMutation } from '@apollo/client'
 import { ALL_AUTHORS,UPDATE_AUTHOR } from '../queries'
 
-const Authors = (props) => {
+const Authors = ({show,notifyError}) => {
   const result = useQuery(ALL_AUTHORS)
   
   const [name,setName] = useState(null)
   const [born,setBorn] = useState('')
 
   const [updateAuthor] = useMutation(UPDATE_AUTHOR,{
-    refetchQueries: [ALL_AUTHORS]
+    refetchQueries: [ALL_AUTHORS],
+    onError: (error) => {
+      notifyError(error.graphQLErrors[0].message)
+    }
   })
 
   //const [createUser] = useMutation(CREATE_USER)
@@ -31,7 +34,7 @@ const Authors = (props) => {
     //console.log('login',token)
   }
 
-  if (!props.show) {
+  if (!show) {
     return null
   }
 
