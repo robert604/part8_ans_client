@@ -1,23 +1,17 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect } from 'react'
 import { useQuery,useLazyQuery } from '@apollo/client'
 import { ALL_BOOKS,ME } from '../queries'
 
 
 const Recommend = (props) => {
-  const [logged,setLogged] = useState(false)
-  const [me,meResult] = useLazyQuery(ME)
+
+  const [me,meResult] = useLazyQuery(ME,{
+    pollInterval: 500
+  })
 
   useEffect(() => {
-    setTimeout(() => {
-      setLogged(true)
-    },500)
-  },[props.token])
-
-  if(logged) {
     me()
-    setLogged(false)
-  }
-
+  },[props.token])
   const skip = !meResult.data || !meResult.data.me
   const genreToDisplay = skip ? 'all' : meResult.data.me.favoriteGenre
 
