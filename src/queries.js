@@ -31,7 +31,15 @@ export const ALL_BOOKS = gql`
     }
   }
 `
-
+export const ME = gql`
+  query {
+    me {
+      username
+      favoriteGenre
+      
+    }
+  }
+`
 /*export const ADD_BOOK = gql`
   mutation brandNewBook($title:String!,$published:Int!,$author:String!,$genres:[String!]!) {
     addBook(
@@ -100,3 +108,4 @@ export const LOGIN = gql`
     }
   }
 `
+

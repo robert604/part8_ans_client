@@ -5,6 +5,7 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import Login from './components/Login'
 import Display from './components/Display'
+import Recommend from './components/Recommend'
 import ErrorNotification from './components/ErrorNotification'
 import { useApolloClient } from '@apollo/client'
 
@@ -39,6 +40,7 @@ const App = () => {
         <button onClick={() => setPage('books')}>books</button>
         <Display display={token}>
           <button onClick={() => setPage('add')}>add book</button>
+          <button onClick={() => setPage('recommend')}>recommend</button>
         </Display>
         <Display display={token}>
           <button onClick={logoutClick}>Logout</button>
@@ -50,7 +52,7 @@ const App = () => {
       </div>
 
       <Authors show={page === 'authors'} notifyError={notifyError} />
-
+      <Recommend show={page==='recommend'} token={token}/>
       <Books
         show={page === 'books'}
       />
@@ -59,7 +61,7 @@ const App = () => {
         show={page === 'add'} token={token} notifyError={notifyError}
       />
 
-      <Login show={page === 'login'} setToken={setToken}/>
+      <Login show={page === 'login'} setToken={setToken} setPage={setPage}/>
     </div>
   )
 }

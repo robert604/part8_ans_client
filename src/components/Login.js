@@ -2,9 +2,10 @@ import { useMutation } from '@apollo/client'
 import React, {useEffect, useState} from 'react'
 import {LOGIN} from '../queries'
 
-const Login = ({show,setToken}) => {
-  const [login,loginResult] = useMutation(LOGIN)
-  //console.log('loginresult',loginResult)
+const Login = ({show,setToken,setPage}) => {
+  const [login,loginResult] = useMutation(LOGIN,{
+    refetchQueries:[]
+  })
 
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
@@ -15,6 +16,7 @@ const Login = ({show,setToken}) => {
       setToken(token)
       localStorage.setItem('books-user-token',token)
       console.log('logged in',loginResult.data)
+      setPage('recommend')
     }
   },[loginResult.data]) //eslint-disable-line
 
@@ -27,9 +29,9 @@ const Login = ({show,setToken}) => {
 
   const loginClick = async (event) => {
     event.preventDefault()
-    await login({variables:{username,password}})
+    login({variables:{username,password}})
     setUsername('')
-    setPassword('')
+    setPassword('') 
   }
 
   if(show) {
