@@ -2,9 +2,7 @@ import React, { useEffect } from 'react'
 import { useQuery,useLazyQuery } from '@apollo/client'
 import { ALL_BOOKS,ME } from '../queries'
 
-
 const Recommend = (props) => {
-
   const [me,meResult] = useLazyQuery(ME,{
     pollInterval: 500
   })
