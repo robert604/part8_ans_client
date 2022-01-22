@@ -41,7 +41,7 @@ const Authors = ({show,notifyError}) => {
   if(result.loading) {
     return <div>loading...</div>
   }
-
+  //console.log('authors result',result)
   const authors = result.data.allAuthors
   //console.log('authors',authors)
   if(!name && authors.length>0) {

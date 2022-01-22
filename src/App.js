@@ -7,7 +7,8 @@ import Login from './components/Login'
 import Display from './components/Display'
 import Recommend from './components/Recommend'
 import ErrorNotification from './components/ErrorNotification'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient,useSubscription } from '@apollo/client'
+import { BOOK_ADDED } from './queries'
 
 
 const App = () => {
@@ -15,6 +16,13 @@ const App = () => {
   const [token, setToken] = useState(localStorage.getItem('books-user-token'))
   const [errorMessage,setErrorMessage] = useState(null)
   const client = useApolloClient()
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData:({ subscriptionData }) => {
+      const { bookAdded} = subscriptionData.data
+      window.alert(`Added book title:"${bookAdded.title}" author:"${bookAdded.author.name}"`)
+    }
+  })
 
   const notifyError = (message) => {
     setErrorMessage(message)
