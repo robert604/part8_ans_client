@@ -7,6 +7,7 @@ const Recommend = (props) => {
     pollInterval: 500
   })
 
+ 
   useEffect(() => {
     me()
   },[props.token])
